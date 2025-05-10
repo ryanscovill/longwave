@@ -81,7 +81,7 @@ export function GiveClue() {
         <CenteredRow>
           <input
             type="text"
-            placeholder={t("giveclue.clue")}
+            placeholder={t("giveclue.clue").toString()}
             ref={inputElement}
             onKeyDown={(event) => {
               if (event.key !== "Enter") {

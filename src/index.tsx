@@ -18,7 +18,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics().logEvent("screen_view", {
   app_name: "Longwave",
   screen_name: "index",
-});
+} as any);
 
 ReactDOM.render(
   <React.StrictMode>

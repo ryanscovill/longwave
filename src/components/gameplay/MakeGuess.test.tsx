@@ -5,7 +5,7 @@ import { TestContext } from "./TestContext";
 
 test("Should show help text when more players are needed", () => {
   const gameState: GameState = {
-    ...InitialGameState(),
+    ...InitialGameState(""),
     players: {
       player1: {
         name: "Player 1",
@@ -29,7 +29,7 @@ test("Should show help text when more players are needed", () => {
 
 test("Should show help text when more players are needed", () => {
   const gameState: GameState = {
-    ...InitialGameState(),
+    ...InitialGameState(""),
     players: {
       player1: {
         name: "Player 1",
@@ -57,7 +57,7 @@ test("Should show help text when more players are needed", () => {
 
 test("Should show button to submit your team's guess", () => {
   const gameState: GameState = {
-    ...InitialGameState(),
+    ...InitialGameState(""),
     players: {
       player1: {
         name: "Player 1",

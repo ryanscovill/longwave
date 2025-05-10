@@ -28,7 +28,7 @@ export function CommonFooter() {
         <a target="_blank" href="https://www.patreon.com/improvedinitiative">
           <img
             alt="Patreon logo"
-            title={t("commonfooter.support_patreon")}
+            title={t("commonfooter.support_patreon").toString()}
             src="./Digital-Patreon-Wordmark_FieryCoral.png"
             style={{ width: "150px", margin: 8 }}
           />
