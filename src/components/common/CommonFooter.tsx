@@ -7,10 +7,10 @@ export function CommonFooter() {
   return (
     <CenteredRow
       style={{
-        paddingTop: 8,
-        borderTop: "1px solid black",
         color: "gray",
         fontSize: "small",
+        maxWidth: 700,
+        margin: "auto",
       }}
     >
       <CenteredColumn>
