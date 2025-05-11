@@ -53,6 +53,7 @@ export function Spectrum(props: {
     [n: number]: { style: React.CSSProperties; label: string };
   } = {};
 
+  // Add special marks for target and guessing values (these will override the hash marks)
   if (props.targetValue !== undefined) {
     marks[props.targetValue] = {
       style: { fontWeight: "bold", color: "black", cursor: "auto" },
@@ -76,6 +77,36 @@ export function Spectrum(props: {
           </div>
           <div style={{ ...cardBackStyle, backgroundColor: secondary, color: secondaryText }}>
             {props.spectrumCard[1]}
+          </div>
+        </CenteredRow>
+        <CenteredRow style={{ justifyContent: "space-between", position: "relative", height: 24, marginBottom: 4 }}>
+          {/* Hash marks above the slider */}
+          <div style={{
+            position: "absolute",
+            left: 32,
+            right: 32,
+            top: 47,
+            height: 16,
+            width: "auto",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}>
+            {Array.from({ length: 21 }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: 2,
+                  height: 12,
+                  background: "#888",
+                  borderRadius: 1,
+                  margin: 0,
+                  alignSelf: "flex-start",
+                }}
+              />
+            ))}
           </div>
         </CenteredRow>
         <div style={{ padding: "16px 32px" }}>

@@ -18,7 +18,7 @@ const style: React.CSSProperties = {
 function App() {
   return (
     <CenteredColumn style={{ minHeight: "100vh", justifyContent: "flex-start" }}>
-      <div style={{ ...style, flex: 1, width: "100%", maxHeight: 500, overflow: "auto" }}>
+      <div style={{ ...style, flex: 1, width: "100%", maxHeight: 600, overflow: "auto" }}>
         <BrowserRouter>
           <Switch>
             <Route path="/:roomId">
