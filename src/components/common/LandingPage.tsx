@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { allLanguages } from "../../i18n";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tooltip } from "react-tippy";
+import Tippy from "@tippyjs/react";
 
 export function LandingPage() {
   const { t } = useTranslation();
@@ -37,15 +37,13 @@ export function LandingPage() {
 
 function LanguageMenu() {
   return (
-    <Tooltip
+    <Tippy
       interactive
-      position="bottom"
-      sticky
-      tabIndex={0}
-      html={<Languages />}
+      placement="bottom"
+      content={<Languages />}
     >
-      <FontAwesomeIcon size="lg" icon={faLanguage} />
-    </Tooltip>
+      <span tabIndex={0}><FontAwesomeIcon size="lg" icon={faLanguage} /></span>
+    </Tippy>
   );
 }
 
@@ -53,27 +51,39 @@ function Languages() {
   const { i18n } = useTranslation();
 
   return (
-    <CenteredColumn
+    <div
       style={{
-        backgroundColor: "white",
-        border: "1px solid black",
-        padding: 6,
+        background: "white",
+        borderRadius: 6,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+        padding: 12,
+        minWidth: 120,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "stretch",
+        border: "none"
       }}
     >
-      {allLanguages.map((language) => {
-        return (
-          <div
-            key={language}
-            style={{ cursor: "pointer" }}
-            tabIndex={0}
-            onClick={() => {
-              i18n.changeLanguage(language);
-            }}
-          >
-            {language}
-          </div>
-        );
-      })}
-    </CenteredColumn>
+      {allLanguages.map((language) => (
+        <button
+          key={language}
+          style={{
+            background: "none",
+            border: "none",
+            textAlign: "left",
+            padding: "6px 8px",
+            cursor: "pointer",
+            fontSize: 16,
+            borderRadius: 4,
+            transition: "background 0.2s",
+          }}
+          onClick={() => i18n.changeLanguage(language)}
+          onMouseOver={e => (e.currentTarget.style.background = '#f0f0f0')}
+          onMouseOut={e => (e.currentTarget.style.background = 'none')}
+        >
+          {language}
+        </button>
+      ))}
+    </div>
   );
 }

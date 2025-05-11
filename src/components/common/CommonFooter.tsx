@@ -7,10 +7,10 @@ export function CommonFooter() {
   return (
     <CenteredRow
       style={{
-        paddingTop: 8,
-        borderTop: "1px solid black",
         color: "gray",
         fontSize: "small",
+        maxWidth: 700,
+        margin: "auto",
       }}
     >
       <CenteredColumn>
@@ -28,7 +28,7 @@ export function CommonFooter() {
         <a target="_blank" href="https://www.patreon.com/improvedinitiative">
           <img
             alt="Patreon logo"
-            title={t("commonfooter.support_patreon")}
+            title={t("commonfooter.support_patreon").toString()}
             src="./Digital-Patreon-Wordmark_FieryCoral.png"
             style={{ width: "150px", margin: 8 }}
           />

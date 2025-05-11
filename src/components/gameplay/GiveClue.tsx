@@ -9,6 +9,7 @@ import { RandomSpectrumTarget } from "../../state/RandomSpectrumTarget";
 import { Info } from "../common/Info";
 import { Animate } from "../common/Animate";
 import { useTranslation } from "react-i18next";
+import { StyledInput } from "../common/StyledInput";
 
 export function GiveClue() {
   const { t } = useTranslation();
@@ -79,11 +80,11 @@ export function GiveClue() {
       </Animate>
       <CenteredColumn>
         <CenteredRow>
-          <input
+          <StyledInput
             type="text"
-            placeholder={t("giveclue.clue")}
+            placeholder={t("giveclue.clue").toString()}
             ref={inputElement}
-            onKeyDown={(event) => {
+            onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
               if (event.key !== "Enter") {
                 return true;
               }

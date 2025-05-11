@@ -7,16 +7,18 @@ import { CommonFooter } from "./common/CommonFooter";
 import { LandingPage } from "./common/LandingPage";
 
 const style: React.CSSProperties = {
-  maxWidth: 500,
-  margin: 4,
-  padding: 4,
-  border: "1px solid black",
+  maxWidth: 800,
+  margin: 16,
+  padding: 16,
+  borderRadius: 16,
+  boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+  background: "#fff",
 };
 
 function App() {
   return (
-    <CenteredColumn>
-      <div style={style}>
+    <CenteredColumn style={{ minHeight: "100vh", justifyContent: "flex-start" }}>
+      <div style={{ ...style, flex: 1, width: "100%", maxHeight: 500, overflow: "auto" }}>
         <BrowserRouter>
           <Switch>
             <Route path="/:roomId">
@@ -26,8 +28,10 @@ function App() {
               <LandingPage />
             </Route>
           </Switch>
-          <CommonFooter />
         </BrowserRouter>
+      </div>
+      <div style={{ width: "100%", marginTop: "auto" }}>
+        <CommonFooter />
       </div>
     </CenteredColumn>
   );

@@ -4,7 +4,7 @@ import { InitialGameState, Team, GameState } from "../../state/GameState";
 import { TestContext } from "./TestContext";
 
 const onePlayerGame: GameState = {
-  ...InitialGameState(),
+  ...InitialGameState(""),
   players: {
     playerId: {
       name: "Player",

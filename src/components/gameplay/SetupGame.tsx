@@ -31,7 +31,7 @@ export function SetupGame() {
   return (
     <CenteredColumn>
       <LongwaveAppTitle />
-      <CenteredRow style={{ flexWrap: "wrap" }}>
+      <CenteredColumn style={{ gap: 16, marginTop: 16 }}>
         <Button
           text={t("setupgame.standard_game")}
           onClick={() => startGame(GameType.Teams)}
@@ -44,7 +44,7 @@ export function SetupGame() {
           text={t("setupgame.free_game")}
           onClick={() => startGame(GameType.Freeplay)}
         />
-      </CenteredRow>
+      </CenteredColumn>
     </CenteredColumn>
   );
 }

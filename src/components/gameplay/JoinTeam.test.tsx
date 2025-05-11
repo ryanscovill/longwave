@@ -7,7 +7,7 @@ jest.useFakeTimers();
 
 test("Assigns player to the selected team", async () => {
   const gameState: GameState = {
-    ...InitialGameState(),
+    ...InitialGameState(""),
     players: {
       player1: {
         name: "Player",
@@ -51,7 +51,7 @@ test("Assigns player to the selected team", async () => {
 
 test("Shows current team members", () => {
   const gameState: GameState = {
-    ...InitialGameState(),
+    ...InitialGameState(""),
     players: {
       playerId: {
         name: "Player",
