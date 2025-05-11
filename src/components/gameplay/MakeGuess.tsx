@@ -29,7 +29,7 @@ export function MakeGuess() {
     return (
       <div>
         <Spectrum spectrumCard={spectrumCard} guessingValue={gameState.guess} />
-        <CenteredColumn>
+        <CenteredColumn style={{ marginTop: 16 }}>
           <div>
             {t("makeguess.players_clue", { givername: clueGiver.name })}:{" "}
             <strong>{gameState.clue}</strong>
@@ -71,7 +71,7 @@ export function MakeGuess() {
           });
         }}
       />
-      <CenteredColumn>
+      <CenteredColumn style={{ marginTop: 16 }}>
         <div>
           {t("makeguess.players_clue", { givername: clueGiver.name })}:{" "}
           <strong>{gameState.clue}</strong>
