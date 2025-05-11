@@ -26,8 +26,9 @@ export function Spectrum(props: {
   const secondaryText = GetContrastingText(secondary);
 
   let handleStyle: React.CSSProperties = {
-    height: 18,
-    width: 18,
+    height: 24,
+    width: 24,
+    bottom: -7,
     backgroundColor: "rgba(255,255,255,0.8)",
     borderColor: "black",
   };
@@ -35,8 +36,8 @@ export function Spectrum(props: {
   const dotStyle = {
     ...handleStyle,
     cursor: "auto",
-    bottom: -9,
-    borderWidth: 4,
+    bottom: -11,
+    borderWidth: 5,
     transform: "translateX(-5px)",
   };
 
@@ -56,14 +57,14 @@ export function Spectrum(props: {
   // Add special marks for target and guessing values (these will override the hash marks)
   if (props.targetValue !== undefined) {
     marks[props.targetValue] = {
-      style: { fontWeight: "bold", color: "black", cursor: "auto" },
+      style: { fontWeight: "bold", color: "black", cursor: "auto", marginTop: 2 },
       label: t("spectrum.target"),
     };
   }
 
   if (props.guessingValue !== undefined) {
     marks[props.guessingValue] = {
-      style: { fontWeight: "bold", color: "black", cursor: "auto" },
+      style: { fontWeight: "bold", color: "black", cursor: "auto", marginTop: 2 },
       label: t("spectrum.guessing"),
     };
   }
@@ -100,7 +101,7 @@ export function Spectrum(props: {
                 style={{
                   width: 2,
                   height: 12,
-                  background: "#888",
+                  background: i === 0 || i === 20 ? "transparent" : "#888",
                   borderRadius: 1,
                   margin: 0,
                   alignSelf: "flex-start",
