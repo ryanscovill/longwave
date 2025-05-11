@@ -79,7 +79,7 @@ export function GiveClue() {
         />
       </Animate>
       <CenteredColumn>
-        <CenteredRow>
+        <CenteredRow style={{ marginTop: 16 }}>
           <StyledInput
             type="text"
             placeholder={t("giveclue.clue").toString()}
