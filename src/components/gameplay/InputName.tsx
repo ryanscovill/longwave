@@ -4,8 +4,10 @@ import { LongwaveAppTitle } from "../common/Title";
 import { useTranslation } from "react-i18next";
 import { StyledInput } from "../common/StyledInput";
 import { Button } from "../common/Button";
+import { useAnimatedBackgroundGradient } from "../common/useAnimatedBackgroundGradient";
 
 export function InputName(props: { setName: (name: string) => void; name?: string }) {
+  useAnimatedBackgroundGradient();
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState(props.name || "");

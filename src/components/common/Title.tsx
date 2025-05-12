@@ -14,7 +14,7 @@ export function LongwaveAppTitle({ size = "small" }: { size?: "large" | "small" 
     }, 5);
     return () => clearInterval(interval);
   });
-  const fontSize = size === "large" ? "6rem" : "3.5rem";
+  const fontSize = size === "large" ? "7rem" : "4rem";
   const strokeWidth = size === "large" ? "2px" : "1px";
   return (
     <h1
