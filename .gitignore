@@ -28,4 +28,4 @@ yarn-error.log*
 database-debug.log
 firebaseConfig.ts
 .firebaserc
-firebase.json
+src/firebaseConfig.ts
