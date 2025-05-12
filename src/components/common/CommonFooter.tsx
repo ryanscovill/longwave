@@ -7,7 +7,7 @@ export function CommonFooter() {
   return (
     <CenteredRow
       style={{
-        color: "gray",
+        color: "black",
         fontSize: "small",
         maxWidth: 700,
         margin: "auto",

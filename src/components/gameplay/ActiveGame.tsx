@@ -10,6 +10,15 @@ import { CounterGuess } from "./CounterGuess";
 import { useContext } from "react";
 import { GameModelContext } from "../../state/GameModelContext";
 import { PreviousTurnResult } from "./PreviousTurnResult";
+import { glassmorphicStyle } from "../common/glassmorphicStyle";
+
+const style: React.CSSProperties = {
+  ...glassmorphicStyle,
+  maxWidth: 800,
+  margin: 16,
+  padding: 16,
+  borderRadius: 16,
+};
 
 export function ActiveGame() {
   const { gameState, localPlayer } = useContext(GameModelContext);
@@ -27,7 +36,7 @@ export function ActiveGame() {
   }
 
   return (
-    <>
+       <div style={{ ...style, flex: 1, width: "100%", maxHeight: 640, overflow: "auto" }}>
       {gameState.roundPhase === RoundPhase.GiveClue && <GiveClue />}
       {gameState.roundPhase === RoundPhase.MakeGuess && <MakeGuess />}
       {gameState.roundPhase === RoundPhase.CounterGuess && <CounterGuess />}
@@ -36,6 +45,6 @@ export function ActiveGame() {
       {gameState.previousTurn && (
         <PreviousTurnResult {...gameState.previousTurn} />
       )}
-    </>
+    </div>
   );
 }
