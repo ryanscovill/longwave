@@ -5,6 +5,7 @@ import { CenteredColumn, CenteredRow } from "./LayoutElements";
 import { Button } from "./Button";
 import { LongwaveAppTitle } from "./Title";
 import { GetContrastingColors } from "./GetContrastingColors";
+import { useAnimatedBackgroundGradient } from "./useAnimatedBackgroundGradient";
 
 import { useTranslation } from "react-i18next";
 import { allLanguages } from "../../i18n";
@@ -16,25 +17,7 @@ export function LandingPage() {
   const { t } = useTranslation();
   const history = useHistory();
 
-  // Animated background gradient like LongwaveAppTitle
-  const [hue, setHue] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHue((h) => (h + 1) % 360);
-    }, 20);
-    return () => clearInterval(interval);
-  }, []);
-  const [primary, secondary] = GetContrastingColors(hue);
-  useEffect(() => {
-    const prevBackground = document.body.style.background;
-    const prevTransition = document.body.style.transition;
-    document.body.style.transition = "background 1.8s cubic-bezier(0.4,0,0.2,1)";
-    document.body.style.background = `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`;
-    return () => {
-      document.body.style.background = prevBackground;
-      document.body.style.transition = prevTransition;
-    };
-  }, [primary, secondary]);
+  useAnimatedBackgroundGradient();
 
   return (
     <CenteredColumn>
