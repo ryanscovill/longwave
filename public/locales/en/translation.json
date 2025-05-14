@@ -54,10 +54,12 @@
     "your_name": "Enter your name"
   },
   "jointeam": {
-    "join_team": "Join Team",
-    "join_left": "Join",
-    "join_right": "Join",
-    "start_game": "Start game"
+    "join_team": "Join a Team",
+    "join_left": "Join Left Team",
+    "join_right": "Join Right Team",
+    "start_game": "Start Game",
+    "settings": "Settings",
+    "points_to_win": "Points to win"
   },
   "makeguess": {
     "players_clue": "{{givername}}'s clue",

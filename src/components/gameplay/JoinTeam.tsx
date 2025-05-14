@@ -7,9 +7,31 @@ import { useContext } from "react";
 import { GameModelContext } from "../../state/GameModelContext";
 import { NewTeamGame } from "../../state/NewGame";
 import { glassmorphicStyle } from "../common/glassmorphicStyle";
+import { StyledInput } from "../common/StyledInput";
 
 import { useTranslation } from "react-i18next";
 import { useAnimatedBackgroundGradient } from "../common/useAnimatedBackgroundGradient";
+
+function SettingsPanel({ pointsToWin, setPointsToWin, disabled }: { pointsToWin: number; setPointsToWin: (n: number) => void; disabled: boolean }) {
+  const { t } = useTranslation();
+  return (
+    <div style={{ marginTop: 24, padding: 16, border: "1px solid #ccc", borderRadius: 12, background: "rgba(255,255,255,0.5)", width: "100%", maxWidth: 340 }}>
+      <div style={{ fontWeight: 600, marginBottom: 8 }}>{t("jointeam.settings")}</div>
+      <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {t("jointeam.points_to_win")}
+        <StyledInput
+          type="number"
+          min={1}
+          max={99}
+          value={pointsToWin}
+          disabled={disabled}
+          onChange={e => setPointsToWin(Number(e.target.value))}
+          style={{ width: 60, marginLeft: 8 }}
+        />
+      </label>
+    </div>
+  );
+}
 
 export function JoinTeam() {
   useAnimatedBackgroundGradient();
@@ -45,6 +67,13 @@ export function JoinTeam() {
         cardsTranslation.t
       )
     );
+
+  // Only show settings for teams mode
+  const showSettings = gameState.gameType === 0; // GameType.Teams === 0
+  const pointsToWin = gameState.pointsToWin ?? 10;
+  const setPointsToWin = (n: number) => {
+    setGameState({ pointsToWin: n });
+  };
 
   return (
     <CenteredColumn>
@@ -126,12 +155,15 @@ export function JoinTeam() {
             </div>
           </CenteredColumn>
         </CenteredRow>
-        {gameState.roundPhase === RoundPhase.PickTeams && (
+      </div>
+      {showSettings && (
+          <SettingsPanel pointsToWin={pointsToWin} setPointsToWin={setPointsToWin} disabled={gameState.roundPhase !== RoundPhase.PickTeams} />
+        )}
+      {gameState.roundPhase === RoundPhase.PickTeams && (
           <div style={{ marginTop: 24 }}>
             <Button text={t("jointeam.start_game")} onClick={startGame} />
           </div>
         )}
-      </div>
     </CenteredColumn>
   );
 }
