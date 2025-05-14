@@ -14,6 +14,7 @@
   },
   "roomidheader": {
     "roomid": "Room ID:",
+    "player_name": "Player",
     "reset_room": "Reset Room",
     "change_name": "Change Name",
     "switch_language_header": "Language setting",
