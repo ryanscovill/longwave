@@ -9,16 +9,20 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { useTranslation } from "react-i18next";
+import { glassmorphicStyle } from "../common/glassmorphicStyle";
 
 export function Scoreboard() {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
 
   const style = {
-    borderTop: "1px solid black",
-    margin: 16,
+    ...glassmorphicStyle,
     paddingTop: 16,
     alignItems: "center",
+    padding: 16,
+    borderRadius: 16,
+    maxWidth: 800,
+    marginTop: 16,
   };
 
   if (gameState.gameType === GameType.Freeplay) {

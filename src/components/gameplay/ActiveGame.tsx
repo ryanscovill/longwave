@@ -16,7 +16,6 @@ const style: React.CSSProperties = {
   ...glassmorphicStyle,
   maxWidth: 800,
   margin: 16,
-  padding: 16,
   borderRadius: 16,
 };
 
@@ -33,18 +32,24 @@ export function ActiveGame() {
       localPlayer.team === Team.Unset)
   ) {
     return <JoinTeam />;
-  }
-
-  return (
-       <div style={{ ...style, flex: 1, width: "100%", maxHeight: 640, overflow: "auto" }}>
-      {gameState.roundPhase === RoundPhase.GiveClue && <GiveClue />}
-      {gameState.roundPhase === RoundPhase.MakeGuess && <MakeGuess />}
-      {gameState.roundPhase === RoundPhase.CounterGuess && <CounterGuess />}
-      {gameState.roundPhase === RoundPhase.ViewScore && <ViewScore />}
-      <Scoreboard />
-      {gameState.previousTurn && (
+  }  return (
+    <>
+       <div style={{ ...style, width: "100%" }}>
+        <div style={{ padding: 16 }}>
+        {gameState.roundPhase === RoundPhase.GiveClue && <GiveClue />}
+        {gameState.roundPhase === RoundPhase.MakeGuess && <MakeGuess />}
+        {gameState.roundPhase === RoundPhase.CounterGuess && <CounterGuess />}
+        {gameState.roundPhase === RoundPhase.ViewScore && <ViewScore />}
+        </div>
+      </div>
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "100%", maxWidth: 800 }}>
+          <Scoreboard />
+        </div>
+      </div>
+      {/* {gameState.previousTurn && (
         <PreviousTurnResult {...gameState.previousTurn} />
-      )}
-    </div>
+      )} */}
+    </>
   );
 }

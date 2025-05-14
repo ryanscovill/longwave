@@ -8,6 +8,7 @@ import { RecordEvent } from "../../TrackEvent";
 import { ScoreCoopRound } from "../../state/ScoreRound";
 
 import { useTranslation } from "react-i18next";
+import { glassmorphicStyle } from "../common/glassmorphicStyle";
 
 export function MakeGuess() {
   const { t } = useTranslation();
@@ -42,9 +43,10 @@ export function MakeGuess() {
           {Object.keys(gameState.players).length < 2 && (
             <div
               style={{
+                ...glassmorphicStyle,
                 margin: 12,
                 padding: "0 1em",
-                border: "1px solid black",
+                borderRadius: 12,
               }}
             >
               <p>{t("makeguess.invite_other_players")}</p>
