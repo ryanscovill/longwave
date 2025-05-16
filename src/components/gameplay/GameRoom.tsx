@@ -55,6 +55,7 @@ export function GameRoom() {
   if (playerName.length === 0) {
     return (
       <InputName
+        name={playerName}
         setName={(name) => {
           setPlayerName(name);
           gameState.players[playerId].name = name;

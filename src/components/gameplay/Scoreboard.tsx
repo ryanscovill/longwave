@@ -4,21 +4,25 @@ import { CenteredRow, CenteredColumn } from "../common/LayoutElements";
 import { GameModelContext } from "../../state/GameModelContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { Animate } from "../common/Animate";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 import { useTranslation } from "react-i18next";
+import { glassmorphicStyle } from "../common/glassmorphicStyle";
 
 export function Scoreboard() {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
 
   const style = {
-    borderTop: "1px solid black",
-    margin: 16,
+    ...glassmorphicStyle,
     paddingTop: 16,
     alignItems: "center",
+    padding: 16,
+    borderRadius: 16,
+    maxWidth: 800,
+    marginTop: 16,
   };
 
   if (gameState.gameType === GameType.Freeplay) {
@@ -93,17 +97,22 @@ function AnimatableScore(props: { score: number }) {
   return (
     <span style={{ position: "relative" }}>
       {props.score}
-      <Animate
-        animation="fade-disappear-up"
+      <motion.span
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 0, y: -32 }}
+        transition={{ duration: 1.2, ease: 'easeIn' }}
         style={{
           position: "absolute",
           fontSize: "small",
           top: -16,
           right: 0,
+          color: "#3f51b5",
+          fontWeight: 600,
+          pointerEvents: "none",
         }}
       >
         +{props.score - lastScore.current}
-      </Animate>
+      </motion.span>
     </span>
   );
 }

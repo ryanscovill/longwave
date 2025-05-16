@@ -13,27 +13,18 @@ export function PreviousTurnResult(props: TurnSummaryModel) {
     paddingTop: 16,
   };
 
-  const glassStyle: React.CSSProperties = {
-    position: "absolute",
-    zIndex: 10,
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    backgroundColor: "rgba(255,255,255,0.5)",
-  };
-
   return (
-    <div style={style}>
+    <div style={{ ... style }}>
       <CenteredColumn>
         <em>{t("previousturnresult.previous_game")}</em>
       </CenteredColumn>
       <div
-        style={{
+        style={{ ...style,
           position: "relative",
+          opacity: 0.5,
         }}
       >
-        <div style={glassStyle} />
+        {/* Removed glassStyle overlay */}
         <Spectrum
           spectrumCard={props.spectrumCard}
           handleValue={props.guess}

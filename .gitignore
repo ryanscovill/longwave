@@ -24,3 +24,8 @@ yarn-error.log*
 
 .firebase/*.cache
 .eslintcache
+
+database-debug.log
+firebaseConfig.ts
+.firebaserc
+src/firebaseConfig.ts

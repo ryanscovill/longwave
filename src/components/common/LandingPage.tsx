@@ -1,8 +1,10 @@
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { RandomFourCharacterString } from "../../state/RandomFourCharacterString";
 import { CenteredColumn, CenteredRow } from "./LayoutElements";
 import { Button } from "./Button";
 import { LongwaveAppTitle } from "./Title";
+import { useAnimatedBackgroundGradient } from "./useAnimatedBackgroundGradient";
 
 import { useTranslation } from "react-i18next";
 import { allLanguages } from "../../i18n";
@@ -12,26 +14,32 @@ import Tippy from "@tippyjs/react";
 
 export function LandingPage() {
   const { t } = useTranslation();
-
   const history = useHistory();
+
+  useAnimatedBackgroundGradient();
+
   return (
-    <CenteredColumn>
-      <LongwaveAppTitle />
-      <CenteredRow>
-        <Button
-          text={t("landingpage.create_room")}
-          onClick={() => {
-            history.push("/" + RandomFourCharacterString());
-          }}
-        />
+    <>
+      <div style={{ position: "absolute", top: 0, right: 0, zIndex: 1000, padding: 16 }}>
         <LanguageMenu />
-      </CenteredRow>
-      <p style={{ margin: 8 }}>
-        <strong>{t("landingpage.longwave")}</strong>{" "}
-        {t("landingpage.adaptation")} <em>{t("landingpage.wavelength")}</em>.{" "}
-        {t("landingpage.best_enjoyed")}
-      </p>
-    </CenteredColumn>
+      </div>
+      <CenteredColumn>
+        <LongwaveAppTitle size="large" />
+        <CenteredRow>
+          <Button
+            text={t("landingpage.create_room")}
+            onClick={() => {
+              history.push("/" + RandomFourCharacterString());
+            }}
+          />
+        </CenteredRow>
+        <p style={{ margin: 8 }}>
+          <strong>{t("landingpage.longwave")}</strong>{" "}
+          {t("landingpage.adaptation")} <em>{t("landingpage.wavelength")}</em>.{" "}
+          {t("landingpage.best_enjoyed")}
+        </p>
+      </CenteredColumn>
+    </>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useRef, useContext, useState } from "react";
+import { motion } from "framer-motion";
 
 import { GameType, RoundPhase } from "../../state/GameState";
 import { Spectrum } from "../common/Spectrum";
@@ -7,7 +8,6 @@ import { Button } from "../common/Button";
 import { GameModelContext } from "../../state/GameModelContext";
 import { RandomSpectrumTarget } from "../../state/RandomSpectrumTarget";
 import { Info } from "../common/Info";
-import { Animate } from "../common/Animate";
 import { useTranslation } from "react-i18next";
 import { StyledInput } from "../common/StyledInput";
 
@@ -35,9 +35,13 @@ export function GiveClue() {
   if (localPlayer.id !== clueGiver.id) {
     return (
       <div>
-        <Animate animation="wipe-reveal-right">
+        <motion.div
+          initial={{ clipPath: 'inset(0 100% 0 0)' }}
+          animate={{ clipPath: 'inset(0 0% 0 0)' }}
+          transition={{ duration: 1.2, ease: 'easeInOut' }}
+        >
           <Spectrum spectrumCard={spectrumCard} />
-        </Animate>
+        </motion.div>
         <CenteredColumn>
           <div>
             {t("giveclue.waiting_for_clue", { givername: clueGiver.name })}
@@ -72,14 +76,18 @@ export function GiveClue() {
           <Button text={t("giveclue.draw_other_hand")} onClick={redrawCard} />
         </CenteredColumn>
       )}
-      <Animate animation="wipe-reveal-right">
+      <motion.div
+        initial={{ clipPath: 'inset(0 100% 0 0)' }}
+        animate={{ clipPath: 'inset(0 0% 0 0)' }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
+      >
         <Spectrum
           targetValue={gameState.spectrumTarget}
           spectrumCard={spectrumCard}
         />
-      </Animate>
+      </motion.div>
       <CenteredColumn>
-        <CenteredRow>
+        <CenteredRow style={{ marginTop: 16 }}>
           <StyledInput
             type="text"
             placeholder={t("giveclue.clue").toString()}

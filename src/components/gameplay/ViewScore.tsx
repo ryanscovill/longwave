@@ -97,7 +97,7 @@ function NextTurnOrEndGame() {
     />
   );
 
-  if (gameState.leftScore >= 10 && gameState.leftScore > gameState.rightScore) {
+  if (gameState.leftScore >= (gameState.pointsToWin ?? 10) && gameState.leftScore > gameState.rightScore) {
     return (
       <>
         <div>
@@ -109,7 +109,7 @@ function NextTurnOrEndGame() {
   }
 
   if (
-    gameState.rightScore >= 10 &&
+    gameState.rightScore >= (gameState.pointsToWin ?? 10) &&
     gameState.rightScore > gameState.leftScore
   ) {
     return (

@@ -6,10 +6,35 @@ import { LongwaveAppTitle } from "../common/Title";
 import { useContext } from "react";
 import { GameModelContext } from "../../state/GameModelContext";
 import { NewTeamGame } from "../../state/NewGame";
+import { glassmorphicStyle } from "../common/glassmorphicStyle";
+import { StyledInput } from "../common/StyledInput";
 
 import { useTranslation } from "react-i18next";
+import { useAnimatedBackgroundGradient } from "../common/useAnimatedBackgroundGradient";
+
+function SettingsPanel({ pointsToWin, setPointsToWin, disabled }: { pointsToWin: number; setPointsToWin: (n: number) => void; disabled: boolean }) {
+  const { t } = useTranslation();
+  return (
+    <div style={{ marginTop: 24, padding: 16, border: "1px solid #ccc", borderRadius: 12, background: "rgba(255,255,255,0.5)", width: "100%", maxWidth: 340 }}>
+      <div style={{ fontWeight: 600, marginBottom: 8 }}>{t("jointeam.settings")}</div>
+      <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {t("jointeam.points_to_win")}
+        <StyledInput
+          type="number"
+          min={1}
+          max={99}
+          value={pointsToWin}
+          disabled={disabled}
+          onChange={e => setPointsToWin(Number(e.target.value))}
+          style={{ width: 60, marginLeft: 8 }}
+        />
+      </label>
+    </div>
+  );
+}
 
 export function JoinTeam() {
+  useAnimatedBackgroundGradient();
   const { t } = useTranslation();
   const cardsTranslation = useTranslation("spectrum-cards");
   const { gameState, localPlayer, setGameState } = useContext(GameModelContext);
@@ -43,44 +68,102 @@ export function JoinTeam() {
       )
     );
 
+  // Only show settings for teams mode
+  const showSettings = gameState.gameType === 0; // GameType.Teams === 0
+  const pointsToWin = gameState.pointsToWin ?? 10;
+  const setPointsToWin = (n: number) => {
+    setGameState({ pointsToWin: n });
+  };
+
   return (
     <CenteredColumn>
       <LongwaveAppTitle />
-      <div>{t("jointeam.join_team")}:</div>
-      <CenteredRow
+      <div
         style={{
-          alignItems: "flex-start",
-          alignSelf: "stretch",
+          ...glassmorphicStyle,
+          borderRadius: 20,
+          padding: 32,
+          margin: 24,
+          minWidth: 340,
+          maxWidth: 600,
+          width: "100%",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <CenteredColumn>
-          <div>{TeamName(Team.Left, t)}</div>
-          {leftTeam.map((playerId) => (
-            <div key={playerId}>{gameState.players[playerId].name}</div>
-          ))}
-          <div>
-            <Button
-              text={t("jointeam.join_left")}
-              onClick={() => joinTeam(Team.Left)}
-            />
+        <div style={{ margin: "0 0 24px 0", fontSize: 28, fontWeight: 600, letterSpacing: 1 }}>{t("jointeam.join_team")}</div>
+        <CenteredRow
+          style={{
+            alignItems: "flex-start",
+            alignSelf: "stretch",
+            gap: 40,
+            marginBottom: 32,
+            position: "relative",
+          }}
+        >
+          <CenteredColumn style={{ gap: 4 }}>
+            <div style={{ fontWeight: 600, marginBottom: 8 }}>{TeamName(Team.Left, t)}</div>
+            {leftTeam.map((playerId) => (
+              <div key={playerId} style={{ marginBottom: 6 }}>{gameState.players[playerId].name}</div>
+            ))}
+            <div style={{ marginTop: 4 }}>
+              <Button
+                text={t("jointeam.join_left")}
+                onClick={() => joinTeam(Team.Left)}
+              />
+            </div>
+          </CenteredColumn>
+          <div
+            style={{
+              width: 12,
+              minWidth: 12,
+              height: 120,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            <svg width="12" height="120" viewBox="0 0 12 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon
+                points="6,0 12,20 9,60 12,100 6,120 0,100 3,60 0,20"
+                fill="rgba(255,255,255,0.35)"
+                stroke="rgba(255,255,255,0.7)"
+                strokeWidth="1.5"
+                style={{ filter: "blur(0.5px) drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }}
+              />
+              <polygon
+                points="6,10 10,25 8,60 10,95 6,110 2,95 4,60 2,25"
+                fill="rgba(200,220,255,0.18)"
+                stroke="rgba(255,255,255,0.3)"
+                strokeWidth="0.7"
+              />
+            </svg>
           </div>
-        </CenteredColumn>
-        <CenteredColumn>
-          <div>{TeamName(Team.Right, t)}</div>
-          {rightTeam.map((playerId) => (
-            <div key={playerId}>{gameState.players[playerId].name}</div>
-          ))}
-          <div>
-            <Button
-              text={t("jointeam.join_right")}
-              onClick={() => joinTeam(Team.Right)}
-            />
-          </div>
-        </CenteredColumn>
-      </CenteredRow>
+          <CenteredColumn style={{ gap: 4 }}>
+            <div style={{ fontWeight: 600, marginBottom: 8 }}>{TeamName(Team.Right, t)}</div>
+            {rightTeam.map((playerId) => (
+              <div key={playerId} style={{ marginBottom: 6 }}>{gameState.players[playerId].name}</div>
+            ))}
+            <div style={{ marginTop: 4 }}>
+              <Button
+                text={t("jointeam.join_right")}
+                onClick={() => joinTeam(Team.Right)}
+              />
+            </div>
+          </CenteredColumn>
+        </CenteredRow>
+      </div>
+      {showSettings && (
+          <SettingsPanel pointsToWin={pointsToWin} setPointsToWin={setPointsToWin} disabled={gameState.roundPhase !== RoundPhase.PickTeams} />
+        )}
       {gameState.roundPhase === RoundPhase.PickTeams && (
-        <Button text={t("jointeam.start_game")} onClick={startGame} />
-      )}
+          <div style={{ marginTop: 24 }}>
+            <Button text={t("jointeam.start_game")} onClick={startGame} />
+          </div>
+        )}
     </CenteredColumn>
   );
 }
