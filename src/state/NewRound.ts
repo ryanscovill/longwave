@@ -39,6 +39,22 @@ export function NewRound(
     nextClueGiver = teamPlayers[nextIndex];
   }
 
+  // Ensure we have a valid clue giver
+  if (!nextClueGiver || !gameState.players[nextClueGiver]) {
+    // If no valid clue giver found, use the first available player
+    const availablePlayers = Object.keys(gameState.players);
+    if (availablePlayers.length > 0) {
+      nextClueGiver = availablePlayers[0];
+    } else {
+      // If no players at all, return to setup phase
+      return {
+        roundPhase: RoundPhase.SetupGame,
+        clueGiver: "",
+        clueGiverTeam: Team.Left,
+      };
+    }
+  }
+
   const newState: Partial<GameState> = {
     clueGiver: nextClueGiver,
     clueGiverTeam: newClueGiverTeam,

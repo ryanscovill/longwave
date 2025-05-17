@@ -73,12 +73,19 @@ function TeamColumn(props: { team: Team; score: number }) {
   );
 
   return (
-    <CenteredColumn style={{ alignItems: "flex-start" }}>
-      <div>
-        {TeamName(props.team, t)}: <AnimatableScore score={props.score} />{" "}
-        {t("scoreboard.points")}
-      </div>
+    <CenteredColumn style={{ alignItems: "center" }}>
+      <div style={{ fontWeight: 600, marginBottom: 8 }}>{TeamName(props.team, t)}</div>
       {members.map(toPlayerRow)}
+      <div style={{ 
+        marginTop: 8,
+        fontWeight: 900,
+        textShadow: "0 0 2px rgba(0,0,0,0.5)",
+        WebkitTextStroke: "1px rgba(0,0,0,0.5)",
+        fontSize: "2.5em",
+        color: "white"
+      }}>
+        <AnimatableScore score={props.score} />
+      </div>
     </CenteredColumn>
   );
 }
@@ -99,14 +106,13 @@ function AnimatableScore(props: { score: number }) {
       {props.score}
       <motion.span
         initial={{ opacity: 1, y: 0 }}
-        animate={{ opacity: 0, y: -32 }}
-        transition={{ duration: 1.2, ease: 'easeIn' }}
+        animate={{ opacity: 0, y: -52 }}
+        transition={{ duration: 2, ease: 'easeIn' }}
         style={{
           position: "absolute",
-          fontSize: "small",
           top: -16,
           right: 0,
-          color: "#3f51b5",
+          color: "grey",
           fontWeight: 600,
           pointerEvents: "none",
         }}
