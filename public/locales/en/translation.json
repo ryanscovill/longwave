@@ -59,7 +59,7 @@
     "join_right": "Join Right Team",
     "start_game": "Start Game",
     "settings": "Settings",
-    "points_to_win": "Points to win"
+    "number_of_rounds": "Number of rounds"
   },
   "makeguess": {
     "players_clue": "{{givername}}'s clue",
@@ -77,7 +77,9 @@
     "last_card": "Last Card!",
     "card_remaining": "Cards remaining",
     "coop_score": "Cooperative Score",
-    "points": "POINTS"
+    "points": "POINTS",
+    "rounds_remaining": "rounds remaining",
+    "rounds_complete": "rounds complete"
   },
   "setupgame": {
     "standard_game": "Standard (Teams): 4+ Players",
@@ -98,6 +100,7 @@
     "catching_up_info": "After a team scores a four-point round, they get a bonus turn if they are still behind the other team",
     "draw_next_card": "Draw next Spectrum Card",
     "score": "Score",
-    "got": "gets"
+    "got": "gets",
+    "tie_game": "It's a tie!"
   }
 }

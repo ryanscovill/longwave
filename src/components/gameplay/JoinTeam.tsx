@@ -12,20 +12,20 @@ import { StyledInput } from "../common/StyledInput";
 import { useTranslation } from "react-i18next";
 import { useAnimatedBackgroundGradient } from "../common/useAnimatedBackgroundGradient";
 
-function SettingsPanel({ pointsToWin, setPointsToWin, disabled }: { pointsToWin: number; setPointsToWin: (n: number) => void; disabled: boolean }) {
+function SettingsPanel({ numberOfRounds, setNumberOfRounds, disabled }: { numberOfRounds: number; setNumberOfRounds: (n: number) => void; disabled: boolean }) {
   const { t } = useTranslation();
   return (
     <div style={{ marginTop: 24, padding: 16, border: "1px solid #ccc", borderRadius: 12, background: "rgba(255,255,255,0.5)", width: "100%", maxWidth: 340 }}>
       <div style={{ fontWeight: 600, marginBottom: 8 }}>{t("jointeam.settings")}</div>
       <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {t("jointeam.points_to_win")}
+        {t("jointeam.number_of_rounds")}
         <StyledInput
           type="number"
           min={1}
           max={99}
-          value={pointsToWin}
+          value={numberOfRounds}
           disabled={disabled}
-          onChange={e => setPointsToWin(Number(e.target.value))}
+          onChange={e => setNumberOfRounds(Number(e.target.value))}
           style={{ width: 60, marginLeft: 8 }}
         />
       </label>
@@ -70,9 +70,9 @@ export function JoinTeam() {
 
   // Only show settings for teams mode
   const showSettings = gameState.gameType === 0; // GameType.Teams === 0
-  const pointsToWin = gameState.pointsToWin ?? 10;
-  const setPointsToWin = (n: number) => {
-    setGameState({ pointsToWin: n });
+  const numberOfRounds = gameState.numberOfRounds;
+  const setNumberOfRounds = (n: number) => {
+    setGameState({ numberOfRounds: n });
   };
 
   return (
@@ -157,7 +157,7 @@ export function JoinTeam() {
         </CenteredRow>
       </div>
       {showSettings && (
-          <SettingsPanel pointsToWin={pointsToWin} setPointsToWin={setPointsToWin} disabled={gameState.roundPhase !== RoundPhase.PickTeams} />
+          <SettingsPanel numberOfRounds={numberOfRounds} setNumberOfRounds={setNumberOfRounds} disabled={gameState.roundPhase !== RoundPhase.PickTeams} />
         )}
       {gameState.roundPhase === RoundPhase.PickTeams && (
           <div style={{ marginTop: 24 }}>

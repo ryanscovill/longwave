@@ -72,8 +72,8 @@ function TeamColumn(props: { team: Team; score: number }) {
     (playerId) => gameState.players[playerId].team === props.team
   );
 
-  const isWinning = props.score >= (gameState.pointsToWin ?? 10) && 
-    (props.team === Team.Left ? props.score > gameState.rightScore : props.score > gameState.leftScore);
+  const teamRounds = Math.floor((gameState.turnsTaken + (props.team === Team.Left ? 0 : 1)) / 2);
+  const roundsRemaining = gameState.numberOfRounds - teamRounds;
 
   return (
     <CenteredColumn style={{ alignItems: "center" }}>
@@ -88,7 +88,9 @@ function TeamColumn(props: { team: Team; score: number }) {
         color: "white"
       }}>
         <AnimatableScore score={props.score} />
-        {isWinning && " 🎉"}
+      </div>
+      <div style={{ marginTop: 4, fontSize: "0.9em", opacity: 0.8 }}>
+        {roundsRemaining > 0 ? `${roundsRemaining} ${t("scoreboard.rounds_remaining")}` : t("scoreboard.rounds_complete")}
       </div>
     </CenteredColumn>
   );

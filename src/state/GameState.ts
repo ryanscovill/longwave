@@ -79,7 +79,8 @@ export interface GameState {
   coopBonusTurns: number;
   previousTurn: TurnSummaryModel | null;
   deckLanguage: string | null;
-  pointsToWin?: number;
+  numberOfRounds: number;
+  currentRound: number;
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -104,6 +105,7 @@ export function InitialGameState(deckLanguage: string): GameState {
     coopBonusTurns: 0,
     previousTurn: null,
     deckLanguage: deckLanguage,
-    pointsToWin: 10,
+    numberOfRounds: 4,
+    currentRound: 1,
   };
 }

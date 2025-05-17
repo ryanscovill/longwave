@@ -97,29 +97,33 @@ function NextTurnOrEndGame() {
     />
   );
 
-  if (gameState.leftScore >= (gameState.pointsToWin ?? 10) && gameState.leftScore > gameState.rightScore) {
-    return (
-      <>
-        <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Left, t) })}
-        </div>
-        {resetButton}
-      </>
-    );
-  }
+  // Check if both teams have completed their rounds
+  const leftTeamRounds = Math.floor(gameState.turnsTaken / 2);
+  const rightTeamRounds = Math.floor((gameState.turnsTaken + 1) / 2);
+  const gameIsOver = leftTeamRounds >= gameState.numberOfRounds && rightTeamRounds >= gameState.numberOfRounds;
 
-  if (
-    gameState.rightScore >= (gameState.pointsToWin ?? 10) &&
-    gameState.rightScore > gameState.leftScore
-  ) {
-    return (
-      <>
-        <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Right, t) })}
-        </div>
-        {resetButton}
-      </>
-    );
+  if (gameIsOver) {
+    const winner = gameState.leftScore > gameState.rightScore ? Team.Left : 
+                  gameState.rightScore > gameState.leftScore ? Team.Right : null;
+    
+    if (winner) {
+      return (
+        <>
+          <div>
+            {t("viewscore.winning_team", { winnerteam: TeamName(winner, t) })}
+          </div>
+          {resetButton}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div>{t("viewscore.game_finished")}</div>
+          <div>{t("viewscore.tie_game")}</div>
+          {resetButton}
+        </>
+      );
+    }
   }
 
   if (
