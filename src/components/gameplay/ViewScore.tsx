@@ -146,30 +146,20 @@ function NextTurnOrEndGame() {
 
   let bonusTurn = false;
 
-  const nextTeam = (() => {
-    if (gameState.gameType !== GameType.Teams) {
-      return Team.Unset;
+  if (gameState.gameType === GameType.Teams && score === 4) {
+    if (
+      gameState.leftScore < gameState.rightScore &&
+      clueGiver.team === Team.Left
+    ) {
+      bonusTurn = true;
     }
-
-    if (score === 4) {
-      if (
-        gameState.leftScore < gameState.rightScore &&
-        clueGiver.team === Team.Left
-      ) {
-        bonusTurn = true;
-        return Team.Left;
-      }
-      if (
-        gameState.rightScore < gameState.leftScore &&
-        clueGiver.team === Team.Right
-      ) {
-        bonusTurn = true;
-        return Team.Right;
-      }
+    if (
+      gameState.rightScore < gameState.leftScore &&
+      clueGiver.team === Team.Right
+    ) {
+      bonusTurn = true;
     }
-
-    return TeamReverse(clueGiver.team);
-  })();
+  }
 
   const eligibleToDraw = (() => {
     if (clueGiver.id === localPlayer.id) {
@@ -180,7 +170,28 @@ function NextTurnOrEndGame() {
       return true;
     }
 
-    return localPlayer.team === nextTeam;
+    // Get all players in the next team
+    const nextTeam = TeamReverse(gameState.clueGiverTeam);
+    const teamPlayers = Object.entries(gameState.players)
+      .filter(([_, player]) => player.team === nextTeam)
+      .map(([id, _]) => id);
+
+    // Check if the player is in the next team
+    if (localPlayer.team !== nextTeam) {
+      return false;
+    }
+
+    // Get the last player from the next team
+    const lastPlayer = nextTeam === Team.Left ? gameState.lastLeftTeamPlayer : gameState.lastRightTeamPlayer;
+    
+    // Find the index of the last player in the team
+    const lastIndex = teamPlayers.indexOf(lastPlayer);
+    
+    // If last player not found or no last player, start from beginning
+    const nextIndex = lastIndex === -1 ? 0 : (lastIndex + 1) % teamPlayers.length;
+    const nextPlayerId = teamPlayers[nextIndex];
+
+    return localPlayer.id === nextPlayerId;
   })();
 
   return (

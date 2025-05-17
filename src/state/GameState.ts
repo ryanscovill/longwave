@@ -70,13 +70,16 @@ export interface GameState {
   counterGuess: "left" | "right";
   players: PlayersTeams;
   clueGiver: string;
+  clueGiverTeam: Team;
+  lastLeftTeamPlayer: string;
+  lastRightTeamPlayer: string;
   leftScore: number;
   rightScore: number;
   coopScore: number;
   coopBonusTurns: number;
   previousTurn: TurnSummaryModel | null;
   deckLanguage: string | null;
-  pointsToWin?: number; // NEW: number of points to win (teams mode)
+  pointsToWin?: number;
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -92,12 +95,15 @@ export function InitialGameState(deckLanguage: string): GameState {
     counterGuess: "left",
     players: {},
     clueGiver: "",
+    clueGiverTeam: Team.Left,
+    lastLeftTeamPlayer: "",
+    lastRightTeamPlayer: "",
     leftScore: 0,
     rightScore: 0,
     coopScore: 0,
     coopBonusTurns: 0,
     previousTurn: null,
     deckLanguage: deckLanguage,
-    pointsToWin: 10, // NEW: default points to win
+    pointsToWin: 10,
   };
 }
