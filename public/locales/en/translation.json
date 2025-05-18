@@ -79,7 +79,8 @@
     "coop_score": "Cooperative Score",
     "points": "POINTS",
     "rounds_remaining": "rounds remaining",
-    "rounds_complete": "rounds complete"
+    "rounds_complete": "rounds complete",
+    "current_round": "Round {{current}} of {{total}}"
   },
   "setupgame": {
     "standard_game": "Standard (Teams): 4+ Players",

@@ -60,6 +60,14 @@ export function Scoreboard() {
     <CenteredRow style={style}>
       <TeamColumn team={Team.Left} score={gameState.leftScore} />
       <TeamColumn team={Team.Right} score={gameState.rightScore} />
+      <div style={{ 
+        position: 'absolute',
+        bottom: 8,
+        fontSize: '0.9em',
+        opacity: 0.8
+      }}>
+        {t("scoreboard.current_round", { current: Math.floor(gameState.turnsTaken / 2) + 1, total: gameState.numberOfRounds })}
+      </div>
     </CenteredRow>
   );
 }
@@ -71,9 +79,6 @@ function TeamColumn(props: { team: Team; score: number }) {
   const members = Object.keys(gameState.players).filter(
     (playerId) => gameState.players[playerId].team === props.team
   );
-
-  const teamRounds = Math.floor((gameState.turnsTaken + (props.team === Team.Left ? 0 : 1)) / 2);
-  const roundsRemaining = gameState.numberOfRounds - teamRounds;
 
   return (
     <CenteredColumn style={{ alignItems: "center" }}>
@@ -88,9 +93,6 @@ function TeamColumn(props: { team: Team; score: number }) {
         color: "white"
       }}>
         <AnimatableScore score={props.score} />
-      </div>
-      <div style={{ marginTop: 4, fontSize: "0.9em", opacity: 0.8 }}>
-        {roundsRemaining > 0 ? `${roundsRemaining} ${t("scoreboard.rounds_remaining")}` : t("scoreboard.rounds_complete")}
       </div>
     </CenteredColumn>
   );

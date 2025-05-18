@@ -98,9 +98,7 @@ function NextTurnOrEndGame() {
   );
 
   // Check if both teams have completed their rounds
-  const leftTeamRounds = Math.floor(gameState.turnsTaken / 2);
-  const rightTeamRounds = Math.floor((gameState.turnsTaken + 1) / 2);
-  const gameIsOver = leftTeamRounds >= gameState.numberOfRounds && rightTeamRounds >= gameState.numberOfRounds;
+  const gameIsOver = gameState.turnsTaken >= (gameState.numberOfRounds * 2) - 1;
 
   if (gameIsOver) {
     const winner = gameState.leftScore > gameState.rightScore ? Team.Left : 
