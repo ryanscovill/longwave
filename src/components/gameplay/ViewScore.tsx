@@ -146,22 +146,22 @@ function NextTurnOrEndGame() {
 
   const scoringTeamString = TeamName(clueGiver.team, t);
 
-  let bonusTurn = false;
+  // let bonusTurn = false;
 
-  if (gameState.gameType === GameType.Teams && score === 4) {
-    if (
-      gameState.leftScore < gameState.rightScore &&
-      clueGiver.team === Team.Left
-    ) {
-      bonusTurn = true;
-    }
-    if (
-      gameState.rightScore < gameState.leftScore &&
-      clueGiver.team === Team.Right
-    ) {
-      bonusTurn = true;
-    }
-  }
+  // if (gameState.gameType === GameType.Teams && score === 4) {
+  //   if (
+  //     gameState.leftScore < gameState.rightScore &&
+  //     clueGiver.team === Team.Left
+  //   ) {
+  //     bonusTurn = true;
+  //   }
+  //   if (
+  //     gameState.rightScore < gameState.leftScore &&
+  //     clueGiver.team === Team.Right
+  //   ) {
+  //     bonusTurn = true;
+  //   }
+  // }
 
   const eligibleToDraw = (() => {
     if (clueGiver.id === localPlayer.id) {
@@ -198,14 +198,14 @@ function NextTurnOrEndGame() {
 
   return (
     <>
-      {bonusTurn && (
+      {/* {bonusTurn && (
         <CenteredRow>
           <div>
             {t("viewscore.catching_up", { scoringteam: scoringTeamString })}
           </div>
           <Info>{t("viewscore.catching_up_info") as string}</Info>
         </CenteredRow>
-      )}
+      )} */}
       {eligibleToDraw && (
         <Button
           text={t("viewscore.draw_next_card")}
