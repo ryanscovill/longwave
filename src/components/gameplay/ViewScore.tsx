@@ -45,15 +45,18 @@ export function ViewScore() {
         targetValue={gameState.spectrumTarget}
       />
       <CenteredColumn>
-        <div>
+        <div style={{ marginBottom: '1rem' }}>
           {t("viewscore.player_clue", { givername: clueGiver.name })}:{" "}
           <strong>{gameState.clue}</strong>
         </div>
-        <div>
-          {t("viewscore.score")}: {score} {t("viewscore.points")}!
+        <div style={{ marginBottom: '.5rem' }}>
+          {t("viewscore.score")}: <strong>{score}</strong> {t("viewscore.points")}!
+          {score === 4 && ` - ${t("viewscore.right_on_target")}`}
+          {score === 3 && ` - ${t("viewscore.one_away")}`}
+          {score === 2 && ` - ${t("viewscore.two_away")}`}
         </div>
         {gameState.gameType === GameType.Teams && (
-          <div>
+          <div style={{ marginBottom: '1rem' }}>
             {TeamName(TeamReverse(clueGiver.team), t)} {t("viewscore.got")}{" "}
             {wasCounterGuessCorrect
               ? t("viewscore.1_point_correct_guess")

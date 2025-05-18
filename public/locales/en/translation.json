@@ -102,6 +102,9 @@
     "draw_next_card": "Draw next Spectrum Card",
     "score": "Score",
     "got": "gets",
-    "tie_game": "It's a tie!"
+    "tie_game": "It's a tie!",
+    "right_on_target": "Right on target!",
+    "one_away": "1 away from target",
+    "two_away": "2 away from target"
   }
 }
