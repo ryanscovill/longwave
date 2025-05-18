@@ -7,7 +7,7 @@
   },
   "landingpage": {
     "create_room": "Create Room",
-    "longwave": "Longwave",
+    "longwave": "SameWave",
     "adaptation": "is an online, real-time adaptation of the board game",
     "wavelength": "Wavelength",
     "best_enjoyed": "Best enjoyed with voice chat!"
@@ -26,7 +26,7 @@
     "target": "Target"
   },
   "title": {
-    "longwave": "Longwave"
+    "longwave": "SameWave"
   },
   "gamestate": {
     "left_brain": "LEFT BRAIN",
