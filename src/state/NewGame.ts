@@ -13,13 +13,6 @@ export function NewTeamGame(
     rightScore: 0,
   };
 
-  const playerTeam = players[startPlayer].team;
-  if (playerTeam === Team.Left) {
-    initialScores.rightScore = 1;
-  } else {
-    initialScores.leftScore = 1;
-  }
-
   return {
     ...NewRound(startPlayer, gameState, tSpectrumCards),
     ...initialScores,
