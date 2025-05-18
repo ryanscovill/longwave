@@ -1,6 +1,6 @@
 {
-  "name": "longwave",
-  "version": "0.2.0",
+  "name": "samewave",
+  "version": "0.1.0",
   "private": true,
   "engines": {
     "node": "20.19.x"
