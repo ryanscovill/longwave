@@ -67,7 +67,7 @@ export interface GameState {
   spectrumTarget: number;
   clue: string;
   guess: number;
-  counterGuess: "left" | "right";
+  counterGuess: "left" | "right" | "exact";
   players: PlayersTeams;
   clueGiver: string;
   clueGiverTeam: Team;

@@ -35,7 +35,9 @@ export function ViewScore() {
     (gameState.counterGuess === "left" &&
       gameState.spectrumTarget < gameState.guess) ||
     (gameState.counterGuess === "right" &&
-      gameState.spectrumTarget > gameState.guess);
+      gameState.spectrumTarget > gameState.guess) ||
+    (gameState.counterGuess === "exact" &&
+      gameState.spectrumTarget === gameState.guess);
 
   return (
     <div>
@@ -59,7 +61,9 @@ export function ViewScore() {
           <div style={{ marginBottom: '1rem' }}>
             {TeamName(TeamReverse(clueGiver.team), t)} {t("viewscore.got")}{" "}
             {wasCounterGuessCorrect
-              ? t("viewscore.1_point_correct_guess")
+              ? (gameState.counterGuess === "exact"
+                ? t("viewscore.2_point_exact_guess")
+                : t("viewscore.1_point_correct_guess"))
               : t("viewscore.0_point_wrong_guess")}
           </div>
         )}

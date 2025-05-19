@@ -23,12 +23,13 @@ export function ScoreCoopRound(gameState: GameState): Partial<GameState> {
 export function ScoreTeamRound(
   gameState: GameState,
   guessingTeam: Team,
-  counterGuess: "left" | "right"
+  counterGuess: "left" | "right" | "exact"
 ): Partial<GameState> {
   const pointsScored = GetScore(gameState.spectrumTarget, gameState.guess);
   const wasCounterGuessCorrect =
     (counterGuess === "left" && gameState.spectrumTarget < gameState.guess) ||
-    (counterGuess === "right" && gameState.spectrumTarget > gameState.guess);
+    (counterGuess === "right" && gameState.spectrumTarget > gameState.guess) ||
+    (counterGuess === "exact" && gameState.spectrumTarget === gameState.guess);
 
   let finalState: Partial<GameState> = {
     roundPhase: RoundPhase.ViewScore,
@@ -38,13 +39,13 @@ export function ScoreTeamRound(
   if (guessingTeam === Team.Right) {
     finalState.rightScore = gameState.rightScore + pointsScored;
     finalState.leftScore =
-      gameState.leftScore + (wasCounterGuessCorrect ? 1 : 0);
+      gameState.leftScore + (wasCounterGuessCorrect ? (counterGuess === "exact" ? 2 : 1) : 0);
   }
 
   if (guessingTeam === Team.Left) {
     finalState.leftScore = gameState.leftScore + pointsScored;
     finalState.rightScore =
-      gameState.rightScore + (wasCounterGuessCorrect ? 1 : 0);
+      gameState.rightScore + (wasCounterGuessCorrect ? (counterGuess === "exact" ? 2 : 1) : 0);
   }
 
   return finalState;
