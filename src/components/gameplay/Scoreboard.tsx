@@ -14,7 +14,7 @@ import { glassmorphicStyle } from "../common/glassmorphicStyle";
 export function Scoreboard() {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
-  const isGameComplete = Math.floor(gameState.turnsTaken / 2) >= gameState.numberOfRounds - 1;
+  const isGameComplete = Math.floor(gameState.turnsTaken / 2) >= gameState.numberOfRounds;
 
   const style = {
     ...glassmorphicStyle,
