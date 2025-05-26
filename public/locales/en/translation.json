@@ -7,7 +7,7 @@
   },
   "landingpage": {
     "create_room": "Create Room",
-    "longwave": "Longwave",
+    "longwave": "SameWave",
     "adaptation": "is an online, real-time adaptation of the board game",
     "wavelength": "Wavelength",
     "best_enjoyed": "Best enjoyed with voice chat!"
@@ -26,7 +26,7 @@
     "target": "Target"
   },
   "title": {
-    "longwave": "Longwave"
+    "longwave": "SameWave"
   },
   "gamestate": {
     "left_brain": "LEFT BRAIN",
@@ -36,6 +36,7 @@
   "counterguess": {
     "more_left": "Target is to the left",
     "more_right": "Target is to the right",
+    "target_exact": "Target is exact",
     "players_clue": "{{givername}}'s clue",
     "waiting_guess_team": "Waiting for {{guessteam}} to guess left/right..."
   },
@@ -59,7 +60,7 @@
     "join_right": "Join Right Team",
     "start_game": "Start Game",
     "settings": "Settings",
-    "points_to_win": "Points to win"
+    "number_of_rounds": "Number of rounds"
   },
   "makeguess": {
     "players_clue": "{{givername}}'s clue",
@@ -77,7 +78,10 @@
     "last_card": "Last Card!",
     "card_remaining": "Cards remaining",
     "coop_score": "Cooperative Score",
-    "points": "POINTS"
+    "points": "POINTS",
+    "rounds_remaining": "rounds remaining",
+    "rounds_complete": "rounds complete",
+    "current_round": "Round {{current}} of {{total}}"
   },
   "setupgame": {
     "standard_game": "Standard (Teams): 4+ Players",
@@ -88,6 +92,7 @@
     "player_clue": "{{givername}}'s clue",
     "winning_team": "{{winnerteam}} wins!",
     "1_point_correct_guess": "1 point for their correct counter guess.",
+    "2_point_exact_guess": "2 points for their exact counter guess!",
     "0_point_wrong_guess": "0 points for their counter guess.",
     "bonus_turn": "Your team earned a <strong>bonus turn!</strong>",
     "reset_game": "Reset game",
@@ -98,6 +103,10 @@
     "catching_up_info": "After a team scores a four-point round, they get a bonus turn if they are still behind the other team",
     "draw_next_card": "Draw next Spectrum Card",
     "score": "Score",
-    "got": "gets"
+    "got": "gets",
+    "tie_game": "It's a tie!",
+    "right_on_target": "Right on target!",
+    "one_away": "1 away from target",
+    "two_away": "2 away from target"
   }
 }

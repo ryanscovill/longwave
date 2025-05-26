@@ -14,6 +14,7 @@ import { glassmorphicStyle } from "../common/glassmorphicStyle";
 export function Scoreboard() {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
+  const isGameComplete = Math.floor(gameState.turnsTaken / 2) >= gameState.numberOfRounds;
 
   const style = {
     ...glassmorphicStyle,
@@ -58,13 +59,23 @@ export function Scoreboard() {
 
   return (
     <CenteredRow style={style}>
-      <TeamColumn team={Team.Left} score={gameState.leftScore} />
-      <TeamColumn team={Team.Right} score={gameState.rightScore} />
+      <TeamColumn team={Team.Left} score={gameState.leftScore} isGameComplete={isGameComplete} />
+      <TeamColumn team={Team.Right} score={gameState.rightScore} isGameComplete={isGameComplete} />
+      {!isGameComplete && (
+        <div style={{ 
+          position: 'absolute',
+          bottom: 8,
+          fontSize: '0.9em',
+          opacity: 0.8
+        }}>
+          {t("scoreboard.current_round", { current: Math.floor(gameState.turnsTaken / 2) + 1, total: gameState.numberOfRounds })}
+        </div>
+      )}
     </CenteredRow>
   );
 }
 
-function TeamColumn(props: { team: Team; score: number }) {
+function TeamColumn(props: { team: Team; score: number; isGameComplete: boolean }) {
   const { t } = useTranslation();
   const { gameState } = useContext(GameModelContext);
 
@@ -72,13 +83,27 @@ function TeamColumn(props: { team: Team; score: number }) {
     (playerId) => gameState.players[playerId].team === props.team
   );
 
+  const isWinning = props.team === Team.Left 
+    ? props.score > gameState.rightScore 
+    : props.score > gameState.leftScore;
+
   return (
-    <CenteredColumn style={{ alignItems: "flex-start" }}>
-      <div>
-        {TeamName(props.team, t)}: <AnimatableScore score={props.score} />{" "}
-        {t("scoreboard.points")}
+    <CenteredColumn style={{ alignItems: "center" }}>
+      <div style={{ fontWeight: 600, marginBottom: 8 }}>
+        {TeamName(props.team, t)}
+        {isWinning && props.isGameComplete && " 🎉"}
       </div>
       {members.map(toPlayerRow)}
+      <div style={{ 
+        marginTop: 8,
+        fontWeight: 900,
+        textShadow: "0 0 2px rgba(0,0,0,0.5)",
+        WebkitTextStroke: "1px rgba(0,0,0,0.5)",
+        fontSize: "2.5em",
+        color: "white"
+      }}>
+        <AnimatableScore score={props.score} />
+      </div>
     </CenteredColumn>
   );
 }
@@ -99,14 +124,13 @@ function AnimatableScore(props: { score: number }) {
       {props.score}
       <motion.span
         initial={{ opacity: 1, y: 0 }}
-        animate={{ opacity: 0, y: -32 }}
-        transition={{ duration: 1.2, ease: 'easeIn' }}
+        animate={{ opacity: 0, y: -52 }}
+        transition={{ duration: 2, ease: 'easeIn' }}
         style={{
           position: "absolute",
-          fontSize: "small",
           top: -16,
           right: 0,
-          color: "#3f51b5",
+          color: "grey",
           fontWeight: 600,
           pointerEvents: "none",
         }}

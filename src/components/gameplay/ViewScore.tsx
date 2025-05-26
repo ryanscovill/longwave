@@ -35,7 +35,9 @@ export function ViewScore() {
     (gameState.counterGuess === "left" &&
       gameState.spectrumTarget < gameState.guess) ||
     (gameState.counterGuess === "right" &&
-      gameState.spectrumTarget > gameState.guess);
+      gameState.spectrumTarget > gameState.guess) ||
+    (gameState.counterGuess === "exact" &&
+      gameState.spectrumTarget === gameState.guess);
 
   return (
     <div>
@@ -45,18 +47,23 @@ export function ViewScore() {
         targetValue={gameState.spectrumTarget}
       />
       <CenteredColumn>
-        <div>
+        <div style={{ marginBottom: '1rem' }}>
           {t("viewscore.player_clue", { givername: clueGiver.name })}:{" "}
           <strong>{gameState.clue}</strong>
         </div>
-        <div>
-          {t("viewscore.score")}: {score} {t("viewscore.points")}!
+        <div style={{ marginBottom: '.5rem' }}>
+          {t("viewscore.score")}: <strong>{score}</strong> {t("viewscore.points")}!
+          {score === 4 && ` - ${t("viewscore.right_on_target")}`}
+          {score === 3 && ` - ${t("viewscore.one_away")}`}
+          {score === 2 && ` - ${t("viewscore.two_away")}`}
         </div>
         {gameState.gameType === GameType.Teams && (
-          <div>
+          <div style={{ marginBottom: '1rem' }}>
             {TeamName(TeamReverse(clueGiver.team), t)} {t("viewscore.got")}{" "}
             {wasCounterGuessCorrect
-              ? t("viewscore.1_point_correct_guess")
+              ? (gameState.counterGuess === "exact"
+                ? t("viewscore.2_point_exact_guess")
+                : t("viewscore.1_point_correct_guess"))
               : t("viewscore.0_point_wrong_guess")}
           </div>
         )}
@@ -97,29 +104,31 @@ function NextTurnOrEndGame() {
     />
   );
 
-  if (gameState.leftScore >= (gameState.pointsToWin ?? 10) && gameState.leftScore > gameState.rightScore) {
-    return (
-      <>
-        <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Left, t) })}
-        </div>
-        {resetButton}
-      </>
-    );
-  }
+  // Check if both teams have completed their rounds
+  const gameIsOver = gameState.turnsTaken >= (gameState.numberOfRounds * 2) - 1;
 
-  if (
-    gameState.rightScore >= (gameState.pointsToWin ?? 10) &&
-    gameState.rightScore > gameState.leftScore
-  ) {
-    return (
-      <>
-        <div>
-          {t("viewscore.winning_team", { winnerteam: TeamName(Team.Right, t) })}
-        </div>
-        {resetButton}
-      </>
-    );
+  if (gameIsOver) {
+    const winner = gameState.leftScore > gameState.rightScore ? Team.Left : 
+                  gameState.rightScore > gameState.leftScore ? Team.Right : null;
+    
+    if (winner) {
+      return (
+        <>
+          <div>
+            {t("viewscore.winning_team", { winnerteam: TeamName(winner, t) })}
+          </div>
+          {resetButton}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div>{t("viewscore.game_finished")}</div>
+          <div>{t("viewscore.tie_game")}</div>
+          {resetButton}
+        </>
+      );
+    }
   }
 
   if (
@@ -144,32 +153,22 @@ function NextTurnOrEndGame() {
 
   const scoringTeamString = TeamName(clueGiver.team, t);
 
-  let bonusTurn = false;
+  // let bonusTurn = false;
 
-  const nextTeam = (() => {
-    if (gameState.gameType !== GameType.Teams) {
-      return Team.Unset;
-    }
-
-    if (score === 4) {
-      if (
-        gameState.leftScore < gameState.rightScore &&
-        clueGiver.team === Team.Left
-      ) {
-        bonusTurn = true;
-        return Team.Left;
-      }
-      if (
-        gameState.rightScore < gameState.leftScore &&
-        clueGiver.team === Team.Right
-      ) {
-        bonusTurn = true;
-        return Team.Right;
-      }
-    }
-
-    return TeamReverse(clueGiver.team);
-  })();
+  // if (gameState.gameType === GameType.Teams && score === 4) {
+  //   if (
+  //     gameState.leftScore < gameState.rightScore &&
+  //     clueGiver.team === Team.Left
+  //   ) {
+  //     bonusTurn = true;
+  //   }
+  //   if (
+  //     gameState.rightScore < gameState.leftScore &&
+  //     clueGiver.team === Team.Right
+  //   ) {
+  //     bonusTurn = true;
+  //   }
+  // }
 
   const eligibleToDraw = (() => {
     if (clueGiver.id === localPlayer.id) {
@@ -180,19 +179,40 @@ function NextTurnOrEndGame() {
       return true;
     }
 
-    return localPlayer.team === nextTeam;
+    // Get all players in the next team
+    const nextTeam = TeamReverse(gameState.clueGiverTeam);
+    const teamPlayers = Object.entries(gameState.players)
+      .filter(([_, player]) => player.team === nextTeam)
+      .map(([id, _]) => id);
+
+    // Check if the player is in the next team
+    if (localPlayer.team !== nextTeam) {
+      return false;
+    }
+
+    // Get the last player from the next team
+    const lastPlayer = nextTeam === Team.Left ? gameState.lastLeftTeamPlayer : gameState.lastRightTeamPlayer;
+    
+    // Find the index of the last player in the team
+    const lastIndex = teamPlayers.indexOf(lastPlayer);
+    
+    // If last player not found or no last player, start from beginning
+    const nextIndex = lastIndex === -1 ? 0 : (lastIndex + 1) % teamPlayers.length;
+    const nextPlayerId = teamPlayers[nextIndex];
+
+    return localPlayer.id === nextPlayerId;
   })();
 
   return (
     <>
-      {bonusTurn && (
+      {/* {bonusTurn && (
         <CenteredRow>
           <div>
             {t("viewscore.catching_up", { scoringteam: scoringTeamString })}
           </div>
           <Info>{t("viewscore.catching_up_info") as string}</Info>
         </CenteredRow>
-      )}
+      )} */}
       {eligibleToDraw && (
         <Button
           text={t("viewscore.draw_next_card")}

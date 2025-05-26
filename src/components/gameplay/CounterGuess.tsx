@@ -68,6 +68,14 @@ export function CounterGuess() {
           }
         />
       </CenteredRow>
+      <CenteredRow>
+        <Button
+          text={t("counterguess.target_exact")}
+          onClick={() =>
+            setGameState(ScoreTeamRound(gameState, clueGiver.team, "exact"))
+          }
+        />
+      </CenteredRow>
     </div>
   );
 }

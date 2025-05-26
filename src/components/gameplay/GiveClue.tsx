@@ -72,7 +72,7 @@ export function GiveClue() {
   return (
     <div>
       {gameState.gameType !== GameType.Cooperative && (
-        <CenteredColumn style={{ alignItems: "flex-end" }}>
+        <CenteredColumn style={{ alignItems: "flex-start" }}>
           <Button text={t("giveclue.draw_other_hand")} onClick={redrawCard} />
         </CenteredColumn>
       )}

@@ -8,7 +8,7 @@ import { LandingPage } from "./common/LandingPage";
 
 function App() {
   return (
-    <CenteredColumn style={{ minHeight: "100vh", justifyContent: "flex-start" }}>
+    <CenteredColumn style={{ justifyContent: "flex-start" }}>
         <BrowserRouter>
           <Switch>
             <Route path="/:roomId">
