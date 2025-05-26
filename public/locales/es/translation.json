@@ -56,7 +56,14 @@
     "join_team": "Únete a un equipo",
     "join_left": "Unirse",
     "join_right": "Unirse",
-    "start_game": "Empezar partida"
+    "start_game": "Empezar partida",
+    "settings": "Configuración",
+    "number_of_rounds": "Número de rondas",
+    "timer_duration": "Temporizador de adivinanza",
+    "no_timer": "Sin temporizador",
+    "seconds": "segundos",
+    "minute": "minuto",
+    "minutes": "minutos"
   },
   "makeguess": {
     "players_clue": "Pista de {{givername}}",
@@ -64,6 +71,10 @@
     "invite_other_players": "Invita a otros jugadores a unirse a la partida.",
     "share_game_url": "Comparte esta URL con ellos: {{game_url}}",
     "guess_for_team": "Enviar la respuesta del {{teamname}}"
+  },
+  "timer": {
+    "time_remaining": "Tiempo restante",
+    "times_up": "¡Se acabó el tiempo! Turno terminado automáticamente."
   },
   "previousturnresult": {
     "previous_game": "Turno anterior",
