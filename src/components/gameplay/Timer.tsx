@@ -53,38 +53,19 @@ export function Timer({ onTimeUp }: TimerProps) {
   const seconds = Math.floor(timeLeft % 60);
 
   const displayTime = minutes > 0 
-    ? `${minutes}:${seconds.toString().padStart(2, '0')}`
-    : `${seconds}`;
+    ? `${minutes}:${seconds.toString().padStart(2, '0')} s `
+    : `${seconds}(s)`;
 
   const progressPercentage = (timeLeft / gameState.timerDuration) * 100;
 
   return (
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      style={{
-        position: "relative",
-        marginBottom: 16,
-        padding: 16,
-        borderRadius: 12,
-        backgroundColor: isWarning ? "rgba(255, 100, 100, 0.1)" : "rgba(255, 255, 255, 0.1)",
-        border: `2px solid ${isWarning ? "#ff6464" : "#ffffff40"}`,
-        textAlign: "center",
-        backdropFilter: "blur(10px)",
-      }}
-    >
+    <div style={{ 
+      textAlign: "center",
+      marginBottom: 16,
+    }}>
       <div style={{ 
-        fontSize: "0.9em", 
-        opacity: 0.8, 
-        marginBottom: 8,
-        color: isWarning ? "#ff6464" : "inherit"
-      }}>
-        {t("timer.time_remaining")}
-      </div>
-      <div style={{ 
-        fontSize: "2em", 
-        fontWeight: 700, 
+        fontSize: "1.2em", 
+        fontWeight: 500, 
         fontFamily: "monospace",
         color: isWarning ? "#ff6464" : "#ffffff",
         textShadow: "0 2px 4px rgba(0,0,0,0.3)"
@@ -111,6 +92,6 @@ export function Timer({ onTimeUp }: TimerProps) {
           transition={{ duration: 0.1 }}
         />
       </div>
-    </motion.div>
+    </div>
   );
 } 
