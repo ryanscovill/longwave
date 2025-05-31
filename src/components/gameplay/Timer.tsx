@@ -39,7 +39,7 @@ export function Timer({ onTimeUp }: TimerProps) {
         // Use the ref to call the latest callback
         onTimeUpRef.current();
       }
-    }, 100);
+    }, 1000);
 
     return () => clearInterval(interval);
     // Only depend on timer duration and start time, not the callback
