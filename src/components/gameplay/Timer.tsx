@@ -53,8 +53,8 @@ export function Timer({ onTimeUp }: TimerProps) {
   const seconds = Math.floor(timeLeft % 60);
 
   const displayTime = minutes > 0 
-    ? `${minutes}:${seconds.toString().padStart(2, '0')} s `
-    : `${seconds}(s)`;
+    ? `${minutes}:${seconds.toString().padStart(2, '0')} ${t("timer.seconds_abbr")}`
+    : `${seconds} ${t("timer.seconds_abbr")}`;
 
   const progressPercentage = (timeLeft / gameState.timerDuration) * 100;
 

@@ -74,7 +74,8 @@
   },
   "timer": {
     "time_remaining": "Tiempo restante",
-    "times_up": "¡Se acabó el tiempo! Turno terminado automáticamente."
+    "times_up": "¡Se acabó el tiempo! Turno terminado automáticamente.",
+    "seconds_abbr": "s"
   },
   "previousturnresult": {
     "previous_game": "Turno anterior",

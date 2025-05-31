@@ -76,7 +76,8 @@
   },
   "timer": {
     "time_remaining": "Time remaining",
-    "times_up": "Time's up! Turn ended automatically."
+    "times_up": "Time's up! Turn ended automatically.",
+    "seconds_abbr": "s"
   },
   "previousturnresult": {
     "previous_game": "Previous Turn",

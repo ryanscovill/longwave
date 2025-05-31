@@ -74,7 +74,8 @@
     },
     "timer": {
         "time_remaining": "Verbleibende Zeit",
-        "times_up": "Zeit abgelaufen! Zug automatisch beendet."
+        "times_up": "Zeit abgelaufen! Zug automatisch beendet.",
+        "seconds_abbr": "s"
     },
     "previousturnresult": {
         "previous_game": "Vorheriges Spiel",
