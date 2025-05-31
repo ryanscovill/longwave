@@ -58,7 +58,12 @@
         "join_right": "Rechtes Team beitreten",
         "start_game": "Spiel starten",
         "settings": "Einstellungen",
-        "number_of_rounds": "Anzahl der Runden"
+        "number_of_rounds": "Anzahl der Runden",
+        "timer_duration": "Rate-Timer",
+        "no_timer": "Kein Timer",
+        "seconds": "Sekunden",
+        "minute": "Minute",
+        "minutes": "Minuten"
     },
     "makeguess": {
         "players_clue": "{{givername}}'s Hinweis",
@@ -66,6 +71,11 @@
         "invite_other_players": "Lade weitere Spieler zu diesem Spiel ein.",
         "share_game_url": "Teile diese Adresse mit ihnen: {{game_url}}",
         "guess_for_team": "Rate für das Team {{teamname}}"
+    },
+    "timer": {
+        "time_remaining": "Verbleibende Zeit",
+        "times_up": "Zeit abgelaufen! Zug automatisch beendet.",
+        "seconds_abbr": "s"
     },
     "previousturnresult": {
         "previous_game": "Vorheriges Spiel",

@@ -81,6 +81,8 @@ export interface GameState {
   deckLanguage: string | null;
   numberOfRounds: number;
   currentRound: number;
+  timerDuration: number; // Timer duration in seconds, 0 means no timer
+  timerStartTime: number | null; // Timestamp when timer started, null when not active
 }
 
 export function InitialGameState(deckLanguage: string): GameState {
@@ -107,5 +109,7 @@ export function InitialGameState(deckLanguage: string): GameState {
     deckLanguage: deckLanguage,
     numberOfRounds: 4,
     currentRound: 1,
+    timerDuration: 0, // Default: no timer
+    timerStartTime: null,
   };
 }

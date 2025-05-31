@@ -61,6 +61,11 @@
     "share_game_url": "Compartilhe esse endereço: {{game_url}}",
     "guess_for_team": "Enviar resposta por {{teamname}}"
   },
+  "timer": {
+    "time_remaining": "Tempo restante",
+    "times_up": "Tempo esgotado! Turno terminado automaticamente.",
+    "seconds_abbr": "s"
+  },
   "previousturnresult": {
     "previous_game": "Turno Anterior",
     "player_clue": "Dica de {{givername}}"

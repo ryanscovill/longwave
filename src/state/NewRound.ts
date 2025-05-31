@@ -65,6 +65,7 @@ export function NewRound(
     deckIndex: gameState.deckIndex + 1,
     turnsTaken: gameState.turnsTaken + 1,
     spectrumTarget: RandomSpectrumTarget(),
+    timerStartTime: null, // Reset timer for new round
   };
 
   if (gameModel.clueGiver !== null) {

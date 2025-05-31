@@ -1,4 +1,4 @@
-import { ReactChild, Suspense } from "react";
+import { ReactChild } from "react";
 import { GameState } from "../../state/GameState";
 import { BuildGameModel } from "../../state/BuildGameModel";
 import { GameModelContext } from "../../state/GameModelContext";
@@ -21,9 +21,7 @@ export function TestContext(props: {
         () => {}
       )}
     >
-      <Suspense fallback={<div>Loading...</div>}>
-        <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
-      </Suspense>
+      <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
     </GameModelContext.Provider>
   );
 }

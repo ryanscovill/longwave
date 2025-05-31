@@ -60,7 +60,12 @@
     "join_right": "Join Right Team",
     "start_game": "Start Game",
     "settings": "Settings",
-    "number_of_rounds": "Number of rounds"
+    "number_of_rounds": "Number of rounds",
+    "timer_duration": "Guess timer",
+    "no_timer": "No timer",
+    "seconds": "seconds",
+    "minute": "minute",
+    "minutes": "minutes"
   },
   "makeguess": {
     "players_clue": "{{givername}}'s clue",
@@ -68,6 +73,11 @@
     "invite_other_players": "Invite other players to join the game.",
     "share_game_url": "Share this URL with them: {{game_url}}",
     "guess_for_team": "Submit Guess for {{teamname}}"
+  },
+  "timer": {
+    "time_remaining": "Time remaining",
+    "times_up": "Time's up! Turn ended automatically.",
+    "seconds_abbr": "s"
   },
   "previousturnresult": {
     "previous_game": "Previous Turn",

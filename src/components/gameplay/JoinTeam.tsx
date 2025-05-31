@@ -12,12 +12,24 @@ import { StyledInput } from "../common/StyledInput";
 import { useTranslation } from "react-i18next";
 import { useAnimatedBackgroundGradient } from "../common/useAnimatedBackgroundGradient";
 
-function SettingsPanel({ numberOfRounds, setNumberOfRounds, disabled }: { numberOfRounds: number; setNumberOfRounds: (n: number) => void; disabled: boolean }) {
+function SettingsPanel({ 
+  numberOfRounds, 
+  setNumberOfRounds, 
+  timerDuration, 
+  setTimerDuration, 
+  disabled 
+}: { 
+  numberOfRounds: number; 
+  setNumberOfRounds: (n: number) => void; 
+  timerDuration: number; 
+  setTimerDuration: (t: number) => void; 
+  disabled: boolean 
+}) {
   const { t } = useTranslation();
   return (
     <div style={{ marginTop: 24, padding: 16, border: "1px solid #ccc", borderRadius: 12, background: "rgba(255,255,255,0.5)", width: "100%", maxWidth: 340 }}>
       <div style={{ fontWeight: 600, marginBottom: 8 }}>{t("jointeam.settings")}</div>
-      <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
         {t("jointeam.number_of_rounds")}
         <StyledInput
           type="number"
@@ -28,6 +40,27 @@ function SettingsPanel({ numberOfRounds, setNumberOfRounds, disabled }: { number
           onChange={e => setNumberOfRounds(Number(e.target.value))}
           style={{ width: 60, marginLeft: 8 }}
         />
+      </label>
+      <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {t("jointeam.timer_duration")}
+        <select
+          value={timerDuration}
+          disabled={disabled}
+          onChange={e => setTimerDuration(Number(e.target.value))}
+          style={{ 
+            marginLeft: 8,
+            padding: "4px 8px",
+            borderRadius: 4,
+            border: "1px solid #ccc",
+            backgroundColor: "white"
+          }}
+        >
+          <option value={0}>{t("jointeam.no_timer")}</option>
+          <option value={15}>15 {t("jointeam.seconds")}</option>
+          <option value={30}>30 {t("jointeam.seconds")}</option>
+          <option value={60}>1 {t("jointeam.minute")}</option>
+          <option value={120}>2 {t("jointeam.minutes")}</option>
+        </select>
       </label>
     </div>
   );
@@ -73,6 +106,11 @@ export function JoinTeam() {
   const numberOfRounds = gameState.numberOfRounds;
   const setNumberOfRounds = (n: number) => {
     setGameState({ numberOfRounds: n });
+  };
+
+  const timerDuration = gameState.timerDuration;
+  const setTimerDuration = (t: number) => {
+    setGameState({ timerDuration: t });
   };
 
   return (
@@ -157,7 +195,7 @@ export function JoinTeam() {
         </CenteredRow>
       </div>
       {showSettings && (
-          <SettingsPanel numberOfRounds={numberOfRounds} setNumberOfRounds={setNumberOfRounds} disabled={gameState.roundPhase !== RoundPhase.PickTeams} />
+          <SettingsPanel numberOfRounds={numberOfRounds} setNumberOfRounds={setNumberOfRounds} timerDuration={timerDuration} setTimerDuration={setTimerDuration} disabled={gameState.roundPhase !== RoundPhase.PickTeams} />
         )}
       {gameState.roundPhase === RoundPhase.PickTeams && (
           <div style={{ marginTop: 24 }}>
