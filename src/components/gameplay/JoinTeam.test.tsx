@@ -1,9 +1,8 @@
 import { render, fireEvent, within, waitFor } from "@testing-library/react";
+import { act } from "react";
 import { InitialGameState, GameState, Team } from "../../state/GameState";
 import { JoinTeam } from "./JoinTeam";
 import { TestContext } from "./TestContext";
-
-jest.useFakeTimers();
 
 test("Assigns player to the selected team", async () => {
   const gameState: GameState = {
@@ -17,26 +16,36 @@ test("Assigns player to the selected team", async () => {
   };
 
   const setState = jest.fn();
-  const component = await render(
-    <TestContext gameState={gameState} playerId="player1" setState={setState}>
-      <JoinTeam />
-    </TestContext>
-  );
+  
+  let component: ReturnType<typeof render>;
+  await act(async () => {
+    component = render(
+      <TestContext gameState={gameState} playerId="player1" setState={setState}>
+        <JoinTeam />
+      </TestContext>
+    );
+  });
 
   let leftBrain: HTMLElement | null = null;
 
   await waitFor(() => {
-    leftBrain = component.getByText("LEFT BRAIN");
+    leftBrain = component!.getByText("LEFT BRAIN");
     return leftBrain;
   });
 
   expect(leftBrain).toBeInTheDocument();
 
-  const button = leftBrain!.parentNode?.querySelector("input")!;
+  // Find the specific "Join" button for the left team (not the title)
+  // Look for buttons with exact text "Join" (not "Join a Team")
+  const joinButtons = component!.getAllByText((content, element) => {
+    return content === "Join" && element?.tagName === "BUTTON";
+  });
+  
+  expect(joinButtons.length).toBeGreaterThan(0);
 
-  expect(button.value).toEqual("Join");
-
-  await fireEvent.click(button);
+  await act(async () => {
+    await fireEvent.click(joinButtons[0]);
+  });
 
   expect(setState).toHaveBeenCalledWith({
     players: {
@@ -49,7 +58,7 @@ test("Assigns player to the selected team", async () => {
   });
 });
 
-test("Shows current team members", () => {
+test("Shows current team members", async () => {
   const gameState: GameState = {
     ...InitialGameState(""),
     players: {
@@ -76,17 +85,20 @@ test("Shows current team members", () => {
     },
   };
 
-  const component = render(
-    <TestContext gameState={gameState} playerId="player1">
-      <JoinTeam />
-    </TestContext>
-  );
+  let component: ReturnType<typeof render>;
+  await act(async () => {
+    component = render(
+      <TestContext gameState={gameState} playerId="player1">
+        <JoinTeam />
+      </TestContext>
+    );
+  });
 
-  const leftBrain = within(component.getByText("LEFT BRAIN").parentElement!);
+  const leftBrain = within(component!.getByText("LEFT BRAIN").parentElement!);
   expect(leftBrain.getByText("Left Team 1")).toBeInTheDocument();
   expect(leftBrain.getByText("Left Team 2")).toBeInTheDocument();
 
-  const rightBrain = within(component.getByText("RIGHT BRAIN").parentElement!);
+  const rightBrain = within(component!.getByText("RIGHT BRAIN").parentElement!);
   expect(rightBrain.getByText("Right Team 1")).toBeInTheDocument();
   expect(rightBrain.getByText("Right Team 2")).toBeInTheDocument();
 });
