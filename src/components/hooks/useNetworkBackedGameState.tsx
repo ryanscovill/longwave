@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getDatabase, ref, onValue, off, set, DataSnapshot } from "firebase/database";
+import { getDatabase, ref, onValue, set, DataSnapshot } from "firebase/database";
 import { GameState, InitialGameState, Team } from "../../state/GameState";
 import { useTranslation } from "react-i18next";
 
