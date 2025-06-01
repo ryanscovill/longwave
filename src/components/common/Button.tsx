@@ -10,6 +10,7 @@ export function Button(props: {
   return (
     <button
       ref={btnRef}
+      className="responsive-button"
       style={{
         padding: "8px 18px",
         marginTop: 8,

@@ -14,8 +14,15 @@ export function LongwaveAppTitle({ size = "small" }: { size?: "large" | "small" 
     }, 5);
     return () => clearInterval(interval);
   });
-  const fontSize = size === "large" ? "7rem" : "4rem";
+  
+  // Responsive font sizes
+  const baseFontSize = size === "large" ? "7rem" : "4rem";
+  const mobileSize = size === "large" ? "3.5rem" : "2.5rem";
+  const tabletSize = size === "large" ? "5rem" : "3rem";
+  
   const strokeWidth = size === "large" ? "2px" : "1px";
+  const mobileStrokeWidth = size === "large" ? "1px" : "0.5px";
+  
   return (
     <h1
       style={{
@@ -24,8 +31,12 @@ export function LongwaveAppTitle({ size = "small" }: { size?: "large" | "small" 
         WebkitTextFillColor: "transparent",
         WebkitTextStroke: `${strokeWidth} black`,
         fontWeight: "bold",
-        fontSize,
+        fontSize: baseFontSize,
+        textAlign: "center",
+        margin: "0 16px",
+        // Media query styles will be handled by CSS classes
       }}
+      className={`responsive-title ${size === "large" ? "large-title" : "small-title"}`}
     >
       {t("title.longwave")}
     </h1>

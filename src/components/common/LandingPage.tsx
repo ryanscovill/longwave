@@ -20,12 +20,14 @@ export function LandingPage() {
 
   return (
     <>
-      <div style={{ position: "absolute", top: 0, right: 0, zIndex: 1000, padding: 16 }}>
+      <div className="language-menu">
         <LanguageMenu />
       </div>
-      <CenteredColumn>
-        <LongwaveAppTitle size="large" />
-        <CenteredRow>
+      <CenteredColumn className="landing-content">
+        <div className="title-wrapper">
+          <LongwaveAppTitle size="large" />
+        </div>
+        <CenteredRow className="button-wrapper">
           <Button
             text={t("landingpage.create_room")}
             onClick={() => {
@@ -33,7 +35,7 @@ export function LandingPage() {
             }}
           />
         </CenteredRow>
-        <p style={{ margin: 8 }}>
+        <p className="landing-description">
           <strong>{t("landingpage.longwave")}</strong>{" "}
           {t("landingpage.adaptation")} <em>{t("landingpage.wavelength")}</em>.{" "}
           {t("landingpage.best_enjoyed")}
@@ -44,19 +46,42 @@ export function LandingPage() {
 }
 
 function LanguageMenu() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <Tippy
       interactive
-      placement="bottom"
+      placement={isMobile ? "bottom-end" : "bottom"}
       content={<Languages />}
     >
-      <span tabIndex={0}><FontAwesomeIcon size="lg" icon={faLanguage} /></span>
+      <span tabIndex={0} className="language-icon">
+        <FontAwesomeIcon size="lg" icon={faLanguage} />
+      </span>
     </Tippy>
   );
 }
 
 function Languages() {
   const { i18n } = useTranslation();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div
@@ -64,12 +89,14 @@ function Languages() {
         background: "white",
         borderRadius: 6,
         boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-        padding: 12,
-        minWidth: 120,
+        padding: isMobile ? 8 : 12,
+        minWidth: isMobile ? 100 : 120,
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-        border: "none"
+        border: "none",
+        maxHeight: isMobile ? "200px" : "none",
+        overflowY: isMobile ? "auto" : "visible"
       }}
     >
       {allLanguages.map((language) => (
@@ -79,9 +106,9 @@ function Languages() {
             background: "none",
             border: "none",
             textAlign: "left",
-            padding: "6px 8px",
+            padding: isMobile ? "4px 6px" : "6px 8px",
             cursor: "pointer",
-            fontSize: 16,
+            fontSize: isMobile ? 14 : 16,
             borderRadius: 4,
             transition: "background 0.2s",
           }}

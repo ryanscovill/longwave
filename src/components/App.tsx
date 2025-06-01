@@ -15,7 +15,7 @@ function App() {
               <GameRoom />
             </Route>
             <Route path="/">
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70vh" }}>
+            <div className="landing-container">
               <LandingPage />
             </div>
             </Route>

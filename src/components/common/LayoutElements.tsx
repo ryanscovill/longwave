@@ -10,9 +10,11 @@ const baseFlexStyles: React.CSSProperties = {
 export function CenteredRow(props: {
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
 }) {
   return (
     <div
+      className={props.className}
       style={{
         ...baseFlexStyles,
         flexFlow: "row",
@@ -27,9 +29,11 @@ export function CenteredRow(props: {
 export function CenteredColumn(props: {
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
 }) {
   return (
     <div
+      className={props.className}
       style={{
         ...baseFlexStyles,
         flexFlow: "column",
