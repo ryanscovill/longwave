@@ -17,11 +17,8 @@ export function LongwaveAppTitle({ size = "small" }: { size?: "large" | "small" 
   
   // Responsive font sizes
   const baseFontSize = size === "large" ? "7rem" : "4rem";
-  const mobileSize = size === "large" ? "3.5rem" : "2.5rem";
-  const tabletSize = size === "large" ? "5rem" : "3rem";
   
   const strokeWidth = size === "large" ? "2px" : "1px";
-  const mobileStrokeWidth = size === "large" ? "1px" : "0.5px";
   
   return (
     <h1

@@ -5,7 +5,8 @@ import "tippy.js/dist/tippy.css";
 import React, { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import * as serviceWorker from "./serviceWorker";
-import firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 import App from "./components/App";
 import { firebaseConfig } from "./firebaseConfig";
@@ -14,8 +15,9 @@ import { useAnimatedBackgroundGradient } from "./components/common/useAnimatedBa
 // import i18n (needs to be bundled ;))
 import "./i18n";
 
-firebase.initializeApp(firebaseConfig);
-firebase.analytics().logEvent("screen_view", {
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+logEvent(analytics, "screen_view" as any, {
   app_name: "Longwave",
   screen_name: "index",
 } as any);

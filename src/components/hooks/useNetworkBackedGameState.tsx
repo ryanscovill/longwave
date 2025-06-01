@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import firebase from "firebase/app";
-import "firebase/database";
+import { getDatabase, ref, onValue, off, set, DataSnapshot } from "firebase/database";
 import { GameState, InitialGameState, Team } from "../../state/GameState";
 import { useTranslation } from "react-i18next";
 
@@ -15,9 +14,10 @@ export function useNetworkBackedGameState(
   );
 
   useEffect(() => {
-    const dbRef = firebase.database().ref("rooms/" + roomId);
+    const database = getDatabase();
+    const dbRef = ref(database, "rooms/" + roomId);
 
-    dbRef.on("value", (appState) => {
+    const unsubscribe = onValue(dbRef, (appState: DataSnapshot) => {
       const networkGameState: GameState = appState.val();
       const completeGameState = {
         ...InitialGameState(i18n.language),
@@ -25,7 +25,7 @@ export function useNetworkBackedGameState(
       };
 
       if (networkGameState?.roundPhase === undefined) {
-        dbRef.set(completeGameState);
+        set(dbRef, completeGameState);
         return;
       }
 
@@ -34,21 +34,22 @@ export function useNetworkBackedGameState(
           name: playerName,
           team: Team.Unset,
         };
-        dbRef.set(completeGameState);
+        set(dbRef, completeGameState);
         return;
       }
 
       setGameState(completeGameState);
     });
-    return () => dbRef.off();
+    
+    return () => unsubscribe();
   }, [playerId, playerName, roomId, i18n]);
-
-  const dbRef = firebase.database().ref("rooms/" + roomId);
 
   return [
     gameState,
     (newState: Partial<GameState>) => {
-      dbRef.set({
+      const database = getDatabase();
+      const dbRef = ref(database, "rooms/" + roomId);
+      set(dbRef, {
         ...gameState,
         ...newState,
       });
